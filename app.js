@@ -16,6 +16,7 @@ const app = express();
 const indexRoute = require('./routes/index');
 const userRoute = require('./routes/user');
 const postRoute = require('./routes/post');
+const dashboardRoute = require('./routes/dashboard');
 
 // Middleware
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/', indexRoute);
 app.use('/user', userRoute);
 app.use('/post', postRoute);
+app.use('/dashboard', dashboardRoute);
 
 // PORT settings
 const PORT = process.env.PORT || 3000;
