@@ -6,6 +6,7 @@ const router = express.Router();
 const Post = require('../models/post');
 
 //! Return all posts
+//? Only my posts
 router.get('/', async (req, res, next) => {
   const posts = await Post.find();
 
