@@ -31,7 +31,9 @@ router.post('/register', async (req, res, next) => {
   // Save user to DB
   try {
     const saveUser = await user.save();
-    res.send(saveUser);
+    //? Redirect with a message
+    res.redirect('/user/login');
+    //res.send(saveUser);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -55,6 +57,37 @@ router.post('/login', async (req, res, next) => {
   if (!user.password === password) return res.send('Password incorrect');
 
   res.send('Email and password was correct');
+});
+
+//! GET forgot password
+router.get('/forgotpassword', (req, res, next) => {
+  res.send('GET Forgot password');
+});
+
+//! POST forgot password
+router.post('/forgotpassword', (req, res, next) => {
+  res.send('POST Forgot password');
+});
+
+//! Delete change password
+router.delete('/deleteuser', async (req, res, next) => {
+  //! Create sessions and find userId
+  const deleteUser = await User.remove({ _id: userId });
+});
+
+//! Update change password
+router.patch('/changepassword', async (req, res, next) => {
+  //! Create sessions and find userId
+  const password = req.body.password;
+  const newPassward = req.body.newPassward;
+  const newPassward2 = req.body.newPassward2;
+
+  const user = User.findById(UserId);
+
+  //? Is new password valid
+  if (user.password === password && newPassward === newPassward2) {
+    const updateUser = User.update({ password: newPassward });
+  }
 });
 
 module.exports = router;

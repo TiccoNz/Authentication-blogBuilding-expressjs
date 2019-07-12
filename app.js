@@ -15,6 +15,7 @@ const app = express();
 // Import routes
 const indexRoute = require('./routes/index');
 const userRoute = require('./routes/user');
+const postRoute = require('./routes/post');
 
 // Middleware
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(express.json());
 // Mounting routes
 app.use('/', indexRoute);
 app.use('/user', userRoute);
+app.use('/post', postRoute);
 
 // PORT settings
 const PORT = process.env.PORT || 3000;
