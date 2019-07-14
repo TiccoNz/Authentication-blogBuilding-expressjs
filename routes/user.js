@@ -5,6 +5,9 @@ const router = express.Router();
 // Import User model
 const User = require('../models/user');
 
+// Import auth validation
+const { registerSchemaValidation } = require('../validation/authValidation');
+
 //! GET USER INDEX
 router.get('/', (req, res, next) => {
   res.send('Register or log in');
@@ -22,6 +25,15 @@ router.get('/register', (req, res, next) => {
 
 //! POST REGISTER
 router.post('/register', async (req, res, next) => {
+  // Validate data before creating a user
+  const { error } = registerSchemaValidation(req.body);
+  if (error) return res.send(error);
+
+  // Does email already exist
+  const emailCheck = await User.findOne({ email: req.body.email });
+  if (emailCheck) return res.send('Email already exist in the database');
+
+  // Create user
   const user = new User({
     name: req.body.name,
     email: req.body.email,
