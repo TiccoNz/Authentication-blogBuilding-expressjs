@@ -2,8 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
+const { privateRouteAuthorization } = require('../controller/authorization');
+
 //! Main - overview - stats
-router.get('/', (req, res, next) => {
+router.get('/', privateRouteAuthorization, (req, res, next) => {
   res.send('Dashboard');
 });
 

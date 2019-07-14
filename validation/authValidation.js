@@ -18,6 +18,21 @@ const registerSchemaValidation = data => {
   return Joi.validate(data, schema);
 };
 
+const logInSchemaValidation = data => {
+  const schema = {
+    email: Joi.string()
+      .required()
+      .email()
+      .max(255),
+    password: Joi.string()
+      .required()
+      .min(12)
+      .max(1024)
+  };
+  return Joi.validate(data, schema);
+};
+
 module.exports = {
-  registerSchemaValidation: registerSchemaValidation
+  registerSchemaValidation: registerSchemaValidation,
+  logInSchemaValidation: logInSchemaValidation
 };
